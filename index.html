@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="WateringApp">
+<head>
+    <meta charset="utf-8">
+    <title>FLOWER WATERING APPLICATION</title>
+    <style>
+        .flowers {
+            border-collapse: collapse;
+        }
+
+        .flowers th {
+            border-bottom: 1px solid;
+        }
+
+        .flowers td,
+        .flowers th {
+            border-left: 1px solid;
+            padding: 5px 10px;
+        }
+
+        .flowers td:first-child,
+        .flowers th:first-child {
+            border-left: none;
+        }
+
+        .button {
+            /*background-color: #4CAF50;*/
+            background-color: grey;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .field {
+            display: block;
+            position: relative;
+        }
+    </style>
+    <script src="lib/boundle.js" charset="utf-8"></script>
+</head>
+
+<body>
+<h1>FLOWER WATERING APPLICATION</h1>
+<div ng-controller="MainController as m" id='container' align='center'>
+    <input ng-show="flowersMap.size == 0 &&!showDetails" ng-click="showDetails = true" type="button" value="Add Flower">
+
+    <form ng-controller="FlowerSubmitController as ctrl" ng-show="showDetails" ng-submit="submit()">
+        <label>Name:
+            <input name="flwr_name" type="text" ng-model="flwr_name" size="35">
+        </label>
+        <label>Last watering date:
+            <input name="flwr_watering_date" ng-model="flwr_watering_date" type="date">
+        </label>
+        <label>Watering interval (days):
+            <input name="flwr_interval" ng-model="flwr_interval" type="number">
+        </label>
+        <input type="submit" id="submit"/>
+    </form>
+
+    <table class="flowers">
+        <tr>
+            <th>Название цветка</th>
+            <th>Время последнего полива</th>
+            <th>Частота полива (дни)</th>
+        </tr>
+        <tr ng-repeat="item in flowersMap | mapToArray | orderBy : 'lastWateringTime'">
+            <td>{{item.name}}</td>
+            <td>{{item.lastWateringTime | date:'MM/dd/yyyy'}}</td>
+            <td>{{item.wateringInterval | number}}</td>
+            <td>
+                <button ng-click="water(item)">Полить!</button>
+            </td>
+            <td>
+                <button ng-click="m.showDetails = true">+</button>
+            </td>
+            <td>
+                <button ng-click="removeFlower(item.name)">-</button>
+            </td>
+        </tr>
+    </table>
+
+    <div id="new-flower" style="align:left"></div>
+</div>
+
+</body>
+</html>
