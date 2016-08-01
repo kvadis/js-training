@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="WateringApp">
+<head>
+    <meta charset="utf-8">
+    <title>{{'APP_NAME' | translate}}</title>
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="lib/bundle.js" charset="utf-8"></script>
+</head>
+
+<body>
+<h1 class="display-1 text-center">{{'APP_NAME' | translate}}</h1>
+<br/><br/>
+<div ng-controller="MainController as m" class='container'>
+    <input class="topcorner" type="button" ng-click="changeLanguage()" value="{{ 'LANGUAGE' | translate }}"/>
+
+
+    <form class="form-horizontal pull-left" role="form" ng-controller="FlowerController as ctrl"
+          ng-submit="submit()">
+        <h3>{{'ADD_FLOWER' | translate}}</h3>
+        <div class="form-group">
+            <label for="flwr_name" class="col-md-4 control-label text-left">{{'FLOWER_NAME' | translate}}:</label>
+            <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="flwr_name" ng-model="flwr_name"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="flwr_watering_date" class="col-md-4 control-label text-left">{{'LAST_WATERING_DATE' | translate}}:</label>
+            <div class="col-md-6 text-left">
+                <input type="date" class="form-control" id="flwr_watering_date" name="flwr_watering_date"
+                       ng-model="flwr_watering_date"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-left">{{'WATERING_INTERVAL' | translate}}:</label>
+            <div class="col-md-6 text-left">
+                <input type="number" class="form-control" name="flwr_interval" ng-model="flwr_interval"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div style="padding-left:110px">
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+
+    <div class="pull-right" ng-show="flowersMap.size > 0">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    <a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">
+                    {{'FLOWER_NAME' | translate }} <span ng-show="orderByField == 'firstName'"><span ng-show="!reverseSort">^</span>
+                        <span ng-show="reverseSort">v</span></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="orderByField='lastName'; reverseSort = !reverseSort">
+                        {{'LAST_WATERING_DATE' | translate }}<span ng-show="orderByField == 'lastWateringTime'">
+                        <span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" ng-click="orderByField='wateringInterval'; reverseSort = !reverseSort">
+                        {{'WATERING_INTERVAL' | translate}} <span ng-show="orderByField == 'age'"><span ng-show="!reverseSort">^</span>
+                        <span ng-show="reverseSort">v</span></span>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in flowersMap | mapToArray | orderBy:orderByField:reverseSort track by $index">
+                <td>{{item.name}}</td>
+                <td>{{item.lastWateringTime | date:'MM/dd/yyyy'}}</td>
+                <td>{{item.wateringInterval | number}}</td>
+                <td>
+                    <button ng-click="waterFlower(item)">{{'ACTION_WATER' | translate}}</button>
+                </td>
+                <td>
+                    <button ng-click="removeFlower(item.name)">-</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--<div id="new-flower" style="align:left"></div>-->
+</div>
+
+</body>
+</html>

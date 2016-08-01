@@ -1,7 +1,7 @@
 export class MainController {
     constructor($scope) {
         $scope.flowersMap = new Map(JSON.parse(localStorage.getItem('myMap'))) || new Map();
-        this.showDetails = false;
+        // this.showDetails = false;
         console.log($scope.flowersMap);
 
         $scope.addFlower = function (key, object) {

@@ -1,0 +1,46 @@
+.topcorner{
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+/*.flowers {
+    border-collapse: collapse;
+}
+
+.flowers th {
+    border-bottom: 1px solid;
+}
+
+.flowers td,
+.flowers th {
+    border-left: 1px solid;
+    padding: 5px 10px;
+}
+
+.flowers td:first-child,
+.flowers th:first-child {
+    border-left: none;
+}
+
+.input {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.field {
+    display: block;
+    position: relative;
+}*/
+
+.form-horizontal .control-label.text-left{
+    text-align: left;
+}

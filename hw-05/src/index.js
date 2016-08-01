@@ -55,7 +55,7 @@ app.filter('mapToArray', function () {
         }
         if (addKey === false) {
             return Object.values(obj);
-            return obj;
+            // return obj;
         } else {
             return Object.keys(obj).map(function (key) {
                 return Object.defineProperty(obj[key], '$key', {enumerable: false, value: key});
